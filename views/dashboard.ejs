@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<h1>Bem-vindo, <%= user.name %>!</h1>
+<p>Perfil: <strong><%= user.role === 'admin' ? 'Administrador' : 'Leitor' %></strong></p>
+
+<div class="dashboard-cards">
+  <a href="/books" class="card">
+    <h3>Livros</h3>
+    <p>Consultar acervo da biblioteca</p>
+  </a>
+  <a href="/loans" class="card">
+    <h3>Emprestimos</h3>
+    <p><%= user.role === 'admin' ? 'Gerenciar todos os emprestimos' : 'Meus emprestimos' %></p>
+  </a>
+  <a href="/loans/borrow" class="card">
+    <h3>Novo Emprestimo</h3>
+    <p>Solicitar emprestimo de um livro</p>
+  </a>
+  <% if (user.role === 'admin') { %>
+  <a href="/books/new" class="card card-admin">
+    <h3>Cadastrar Livro</h3>
+    <p>Adicionar novo livro ao acervo</p>
+  </a>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

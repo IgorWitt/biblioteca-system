@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+
+<div class="page-header">
+  <h1><%= user.role === 'admin' ? 'Todos os Emprestimos' : 'Meus Emprestimos' %></h1>
+  <a href="/loans/borrow" class="btn btn-primary">+ Novo Emprestimo</a>
+</div>
+
+<% if (loans.length === 0) { %>
+  <p class="empty-state">Nenhum emprestimo encontrado.</p>
+<% } else { %>
+<table class="table">
+  <thead>
+    <tr>
+      <% if (user.role === 'admin') { %><th>Leitor</th><% } %>
+      <th>Livro</th>
+      <th>Data Emprestimo</th>
+      <th>Devolucao Prevista</th>
+      <th>Status</th>
+      <th>Acoes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% loans.forEach(loan => { %>
+    <tr>
+      <% if (user.role === 'admin') { %><td><%= loan.user_name %></td><% } %>
+      <td><%= loan.book_title %></td>
+      <td><%= new Date(loan.loan_date).toLocaleDateString('pt-BR') %></td>
+      <td><%= new Date(loan.due_date).toLocaleDateString('pt-BR') %></td>
+      <td>
+        <span class="badge <%= loan.status === 'ativo' ? 'badge-active' : 'badge-returned' %>">
+          <%= loan.status === 'ativo' ? 'Ativo' : 'Devolvido' %>
+        </span>
+      </td>
+      <td>
+        <% if (loan.status === 'ativo') { %>
+        <form method="POST" action="/loans/<%= loan.id %>/return" style="display:inline">
+          <button type="submit" class="btn btn-sm btn-success">Devolver</button>
+        </form>
+        <% } else { %>
+          <span class="text-muted">Devolvido em <%= new Date(loan.return_date).toLocaleDateString('pt-BR') %></span>
+        <% } %>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+<% } %>
+
+<%- include('../partials/footer') %>

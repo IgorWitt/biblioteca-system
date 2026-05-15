@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biblioteca</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <% if (typeof user !== 'undefined' && user) { %>
+  <nav class="navbar">
+    <div class="nav-brand">Biblioteca</div>
+    <div class="nav-links">
+      <a href="/dashboard">Inicio</a>
+      <a href="/books">Livros</a>
+      <a href="/loans">Emprestimos</a>
+      <span class="nav-user"><%= user.name %> (<%= user.role %>)</span>
+      <a href="/logout" class="btn-logout">Sair</a>
+    </div>
+  </nav>
+  <% } %>
+  <main class="container">

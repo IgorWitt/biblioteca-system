@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+
+<div class="page-header">
+  <h1>Acervo de Livros</h1>
+  <% if (user.role === 'admin') { %>
+    <a href="/books/new" class="btn btn-primary">+ Novo Livro</a>
+  <% } %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Titulo</th>
+      <th>Autor</th>
+      <th>ISBN</th>
+      <th>Qtd Total</th>
+      <th>Disponiveis</th>
+      <% if (user.role === 'admin') { %><th>Acoes</th><% } %>
+    </tr>
+  </thead>
+  <tbody>
+    <% books.forEach(book => { %>
+    <tr>
+      <td><%= book.title %></td>
+      <td><%= book.author %></td>
+      <td><%= book.isbn %></td>
+      <td><%= book.quantity %></td>
+      <td class="<%= book.available === 0 ? 'text-danger' : 'text-success' %>">
+        <%= book.available %>
+      </td>
+      <% if (user.role === 'admin') { %>
+      <td class="actions">
+        <a href="/books/<%= book.id %>/edit" class="btn btn-sm">Editar</a>
+        <form method="POST" action="/books/<%= book.id %>/delete" style="display:inline"
+              onsubmit="return confirm('Excluir este livro?')">
+          <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+        </form>
+      </td>
+      <% } %>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('../partials/footer') %>

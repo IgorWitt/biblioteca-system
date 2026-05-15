@@ -1,0 +1,21 @@
+{
+  "name": "biblioteca-system",
+  "version": "1.0.0",
+  "description": "Sistema de Biblioteca Simplificada - Trabalho de Desenvolvimento Web",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "seed": "node src/database/seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.10.0",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0"
+  }
+}

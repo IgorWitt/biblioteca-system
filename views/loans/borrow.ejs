@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+
+<h1>Solicitar Emprestimo</h1>
+
+<% if (error) { %>
+  <div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<% if (books.length === 0) { %>
+  <p class="empty-state">Nenhum livro disponivel para emprestimo no momento.</p>
+  <a href="/books" class="btn">Ver Acervo</a>
+<% } else { %>
+<form method="POST" action="/loans/borrow" class="form">
+  <div class="form-group">
+    <label for="book_id">Selecione o Livro</label>
+    <select id="book_id" name="book_id" required>
+      <option value="">-- Escolha um livro --</option>
+      <% books.forEach(book => { %>
+        <option value="<%= book.id %>"><%= book.title %> - <%= book.author %> (<%= book.available %> disp.)</option>
+      <% }) %>
+    </select>
+  </div>
+  <p class="form-hint">Prazo de devolucao: 14 dias a partir da data do emprestimo.</p>
+  <button type="submit" class="btn btn-primary">Confirmar Emprestimo</button>
+  <a href="/loans" class="btn">Cancelar</a>
+</form>
+<% } %>
+
+<%- include('../partials/footer') %>
